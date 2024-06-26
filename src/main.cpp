@@ -5,8 +5,8 @@ int main()
 {
   while (true)
   {
-    GameUi tttGame;
-    tttGame.start();
+    GameUi tic_tac_toe;
+    tic_tac_toe.start();
 
     printf(":: Would you like to play again? (Y/n): ");
     if (toupper(getchar()) != 'Y') break;

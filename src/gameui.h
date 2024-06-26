@@ -23,7 +23,7 @@ class GameUi : private GameLogic {
     const char* getCurrStatusText();
     void setInputStatus(MoveStatus);
     const char* getInputStatusText();
-    MoveStatus prevMoveStatus = DEFAULT;
+    MoveStatus prev_move_status = DEFAULT;
 };
 
 #endif

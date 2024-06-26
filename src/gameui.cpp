@@ -8,7 +8,7 @@ void GameUi::start()
 
   printf("\n:: Would you like to swap player symbols? (Y/n): ");
   if (toupper(getchar()) == 'Y') this->swapChoice();
-  this->setCurrStatus(ONGOING);
+  this->setCurrentStatus(ONGOING);
   this->clear();
 
   ushort inx, row, col;
@@ -35,7 +35,7 @@ void GameUi::start()
 
     this->clear();
 
-  } while(this->getCurrStatus() == ONGOING);
+  } while(this->getCurrentStatus() == ONGOING);
 
   evaluateWinner();
   while (getchar() != '\n'); // clear the input buffer
@@ -44,9 +44,9 @@ void GameUi::start()
 void GameUi::evaluateWinner() {
   this->show();
 
-  switch(this->getCurrStatus()) {
+  switch(this->getCurrentStatus()) {
     case WIN: printf("\n:: Congratulations! Player %d <%c> has won " 
-                     "the game.\n\n", currTurn, choice[currTurn]);
+                     "the game.\n\n", current_turn, choice[current_turn]);
     break;
 
     case DRAW: printf("\n:: It's a draw! No one has won the game.\n\n");
@@ -60,7 +60,7 @@ void GameUi::evaluateWinner() {
 bool GameUi::getInxInput(ushort& inx) {
   while(getchar() != '\n'); // clear the input buffer
   printf("\n:: Player %d <%c> - Enter a number to make your move: ", 
-         currTurn, choice[currTurn]);
+         current_turn, choice[current_turn]);
 
   if (scanf("%hu", &inx) != 1 || inx >= BOARD_DIM*BOARD_DIM) return false;
   return true;
@@ -71,12 +71,12 @@ void GameUi::showRow(char *data) {
 }
 
 void GameUi::setInputStatus(MoveStatus previous) {
-  prevMoveStatus = previous;
+  prev_move_status = previous;
 }
 
 const char* GameUi::getCurrStatusText()
 {
-  switch (this->getCurrStatus()) {
+  switch (this->getCurrentStatus()) {
     case WIN: return "Win!";
     case DRAW: return "Draw!";
     case ONGOING: return "Ongoing!";
@@ -87,7 +87,7 @@ const char* GameUi::getCurrStatusText()
 
 const char* GameUi::getInputStatusText()
 {
-  switch(prevMoveStatus) {
+  switch(prev_move_status) {
     case VALID_MOVE: return "Move was valid!";
     case INVALID_MOVE: return "Move was invalid! That field is already occupied.";
     case UNEXPECTED_MOVE: return "Move was unexpected! Please enter a number between 0 and 8.";
